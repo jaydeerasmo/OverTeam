@@ -1,8 +1,19 @@
 import React from 'react';
 import {View, StyleSheet, Picker} from 'react-native';
+import {Button, Input} from 'react-native-elements';
 import * as Colors from '../constants/Colors';
 
 export default class NewTeamScreen extends React.Component {
+  static navigationOptions = {
+    title: 'New Team',
+    headerStyle: {
+      backgroundColor: Colors.MEDIUM_GREY,
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
   constructor(props){
     super(props);
     this.state = {
@@ -36,39 +47,45 @@ export default class NewTeamScreen extends React.Component {
           <Picker.Item label="Playstation" value="Playstation"/>
         </Picker>
 
-        <TextInput
-          style = {styles.textInput}
+        <Input
+          inputStyle = {styles.textInput}
+          containerStyle = {styles.inputContainer}
           placeholder = "Enter player name"
           onChangeText = {(text) => this.handlePlayer(text, 0)}
         />
-        <TextInput
-          style = {styles.textInput}
+        <Input
+          inputStyle = {styles.textInput}
+          containerStyle = {styles.inputContainer}
           placeholder = "Enter player name"
           onChangeText = {(text) => this.handlePlayer(text, 1)}
         />
-        <TextInput
-          style = {styles.textInput}
+        <Input
+          inputStyle = {styles.textInput}
+          containerStyle = {styles.inputContainer}
           placeholder = "Enter player name"
           onChangeText = {(text) => this.handlePlayer(text, 2)}
         />
-        <TextInput
-          style = {styles.textInput}
+        <Input
+          inputStyle = {styles.textInput}
+          containerStyle = {styles.inputContainer}
           placeholder = "Enter player name"
           onChangeText = {(text) => this.handlePlayer(text, 3)}
         />
-        <TextInput
-          style = {styles.textInput}
+        <Input
+          inputStyle = {styles.textInput}
+          containerStyle = {styles.inputContainer}
           placeholder = "Enter player name"
           onChangeText = {(text) => this.handlePlayer(text, 4)}
         />
-        <TextInput
-          style = {styles.textInput}
+        <Input
+          inputStyle = {styles.textInput}
+          containerStyle = {styles.inputContainer}
           placeholder = "Enter player name"
           onChangeText = {(text) => this.handlePlayer(text, 5)}
         />
 
         <Button
-          title="Submit Team",
+          title="Submit Team"
           buttonStyle={styles.submitButton}
           onPress={this.submitTeam}
         />
@@ -84,10 +101,16 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.DARK_GREY,
   },
   textInput: {
-
+    height: 50,
+    paddingTop: 2,
+    paddingBottom: 2,
+    color: "white",
+  },
+  inputContainer: {
+    backgroundColor: Colors.MEDIUM_GREY,
   },
   picker: {
-
+    color: "white",
   },
   submitButton: {
 

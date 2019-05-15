@@ -36,7 +36,7 @@ export default class StartScreen extends React.Component {
           <Button
             title="New Team"
             buttonStyle = {styles.newTeamButton}
-            onPress = {this.props.navigation.navigate("NewTeam")}
+            onPress = {() => {this.props.navigation.navigate("NewTeam")}}
           />
 
         </View>
