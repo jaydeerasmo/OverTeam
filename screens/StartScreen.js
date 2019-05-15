@@ -8,6 +8,14 @@ export default class StartScreen extends React.Component {
     title: 'Start',
     headerStyle: {
       backgroundColor: Colors.MEDIUM_GREY,
+      shadowColor: "#000",
+      shadowOffset: {
+	       width: 0,
+	        height: 3,
+},
+shadowOpacity: 0.27,
+      shadowRadius: 4.65,
+      elevation: 6,
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
@@ -37,6 +45,7 @@ export default class StartScreen extends React.Component {
             title="New Team"
             buttonStyle = {styles.newTeamButton}
             onPress = {() => {this.props.navigation.navigate("NewTeam")}}
+            raised = {true}
           />
 
         </View>

@@ -88,6 +88,7 @@ export default class NewTeamScreen extends React.Component {
           title="Submit Team"
           buttonStyle={styles.submitButton}
           onPress={this.submitTeam}
+          raised= {true}
         />
 
       </View>
@@ -108,9 +109,14 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     backgroundColor: Colors.MEDIUM_GREY,
+    flex:1,
+    padding: 16
   },
   picker: {
     color: "white",
+    padding: 16,
+    backgroundColor: Colors.MEDIUM_GREY,
+
   },
   submitButton: {
 
