@@ -12,6 +12,17 @@ export default class NewTeamScreen extends React.Component {
       team: [],
     };
   }
+
+  handlePlayer = (text, id) => {
+    let newTeam = this.state.team;
+    newTeam[id] = text;
+    this.setState({team: newTeam});
+  }
+
+  submitTeam = () => {
+    this.props.navigation.navigate("TeamStats", {platform: this.state.platform, team: this.state.team});
+  }
+
   render(){
     return(
       <View style={styles.container}>
@@ -20,10 +31,47 @@ export default class NewTeamScreen extends React.Component {
           style = {styles.picker}
           onValueChange = {(itemValue, itemIndex) => this.setState({platform: itemValue})}
         >
-          <Picker.Item label="Xbox" value="xbl"/>
-          <Picker.Item label="PC" value="pc"/>
-          <Picker.Item label="Playstation" value="psn"/>
+          <Picker.Item label="Xbox" value="Xbox"/>
+          <Picker.Item label="PC" value="PC"/>
+          <Picker.Item label="Playstation" value="Playstation"/>
         </Picker>
+
+        <TextInput
+          style = {styles.textInput}
+          placeholder = "Enter player name"
+          onChangeText = {(text) => this.handlePlayer(text, 0)}
+        />
+        <TextInput
+          style = {styles.textInput}
+          placeholder = "Enter player name"
+          onChangeText = {(text) => this.handlePlayer(text, 1)}
+        />
+        <TextInput
+          style = {styles.textInput}
+          placeholder = "Enter player name"
+          onChangeText = {(text) => this.handlePlayer(text, 2)}
+        />
+        <TextInput
+          style = {styles.textInput}
+          placeholder = "Enter player name"
+          onChangeText = {(text) => this.handlePlayer(text, 3)}
+        />
+        <TextInput
+          style = {styles.textInput}
+          placeholder = "Enter player name"
+          onChangeText = {(text) => this.handlePlayer(text, 4)}
+        />
+        <TextInput
+          style = {styles.textInput}
+          placeholder = "Enter player name"
+          onChangeText = {(text) => this.handlePlayer(text, 5)}
+        />
+
+        <Button
+          title="Submit Team",
+          buttonStyle={styles.submitButton}
+          onPress={this.submitTeam}
+        />
 
       </View>
 
@@ -34,5 +82,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.DARK_GREY,
-  }
+  },
+  textInput: {
+
+  },
+  picker: {
+
+  },
+  submitButton: {
+
+  },
 });
