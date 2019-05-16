@@ -43,9 +43,9 @@ export default class NewTeamScreen extends React.Component {
           style = {styles.picker}
           onValueChange = {(itemValue, itemIndex) => this.setState({platform: itemValue})}
         >
-          <Picker.Item label="Xbox" value="Xbox"/>
-          <Picker.Item label="PC" value="PC"/>
-          <Picker.Item label="Playstation" value="Playstation"/>
+          <Picker.Item label="Xbox" value="xbl"/>
+          <Picker.Item label="PC" value="pc"/>
+          <Picker.Item label="Playstation" value="psn"/>
         </Picker>
 
         <Input
@@ -111,11 +111,22 @@ const styles = StyleSheet.create({
   },
   textInput: {
     color: "white",
+
   },
   inputContainer: {
     backgroundColor: Colors.MEDIUM_GREY,
     flex:0,
-    margin: 8
+    margin: 8,
+    borderRadius: 15,
+    shadowColor: "#000",
+    shadowOffset: {
+	     width: 0,
+	     height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+
+    elevation: 7,
   },
   picker: {
     alignSelf:'stretch',

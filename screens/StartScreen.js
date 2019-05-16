@@ -11,11 +11,12 @@ export default class StartScreen extends React.Component {
       shadowColor: "#000",
       shadowOffset: {
 	       width: 0,
-	        height: 3,
-},
-shadowOpacity: 0.27,
-      shadowRadius: 4.65,
-      elevation: 6,
+	        height: 10,
+      },
+      shadowOpacity: 0.51,
+      shadowRadius: 13.16,
+
+      elevation: 20,
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
