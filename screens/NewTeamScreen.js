@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, Picker} from 'react-native';
-import {Button, Input} from 'react-native-elements';
+import {Button, Input, Icon} from 'react-native-elements';
 import * as Colors from '../constants/Colors';
 
 export default class NewTeamScreen extends React.Component {
@@ -31,6 +31,7 @@ export default class NewTeamScreen extends React.Component {
   }
 
   submitTeam = () => {
+    console.log(`${this.state.platform}, ${this.state.team}`);
     this.props.navigation.navigate("TeamStats", {platform: this.state.platform, team: this.state.team});
   }
 
@@ -50,36 +51,42 @@ export default class NewTeamScreen extends React.Component {
         <Input
           inputStyle = {styles.textInput}
           containerStyle = {styles.inputContainer}
+          leftIcon = {<Icon name='person-outline' size={24} color='black'/>}
           placeholder = "Enter player name"
           onChangeText = {(text) => this.handlePlayer(text, 0)}
         />
         <Input
           inputStyle = {styles.textInput}
           containerStyle = {styles.inputContainer}
+          leftIcon = {<Icon name='person-outline' size={24} color='black'/>}
           placeholder = "Enter player name"
           onChangeText = {(text) => this.handlePlayer(text, 1)}
         />
         <Input
           inputStyle = {styles.textInput}
           containerStyle = {styles.inputContainer}
+          leftIcon = {<Icon name='person-outline' size={24} color='black'/>}
           placeholder = "Enter player name"
           onChangeText = {(text) => this.handlePlayer(text, 2)}
         />
         <Input
           inputStyle = {styles.textInput}
           containerStyle = {styles.inputContainer}
+          leftIcon = {<Icon name='person-outline' size={24} color='black'/>}
           placeholder = "Enter player name"
           onChangeText = {(text) => this.handlePlayer(text, 3)}
         />
         <Input
           inputStyle = {styles.textInput}
           containerStyle = {styles.inputContainer}
+          leftIcon = {<Icon name='person-outline' size={24} color='black'/>}
           placeholder = "Enter player name"
           onChangeText = {(text) => this.handlePlayer(text, 4)}
         />
         <Input
           inputStyle = {styles.textInput}
           containerStyle = {styles.inputContainer}
+          leftIcon = {<Icon name='person-outline' size={24} color='black'/>}
           placeholder = "Enter player name"
           onChangeText = {(text) => this.handlePlayer(text, 5)}
         />
@@ -100,21 +107,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.DARK_GREY,
+    alignItems:'center'
   },
   textInput: {
-    height: 50,
-    paddingTop: 2,
-    paddingBottom: 2,
     color: "white",
   },
   inputContainer: {
     backgroundColor: Colors.MEDIUM_GREY,
-    flex:1,
-    padding: 16
+    flex:0,
+    margin: 8
   },
   picker: {
+    alignSelf:'stretch',
     color: "white",
-    padding: 16,
+    margin: 8,
     backgroundColor: Colors.MEDIUM_GREY,
 
   },
