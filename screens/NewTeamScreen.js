@@ -31,7 +31,6 @@ export default class NewTeamScreen extends React.Component {
   }
 
   submitTeam = () => {
-    console.log(`${this.state.platform}, ${this.state.team}`);
     this.props.navigation.navigate("TeamStats", {platform: this.state.platform, team: this.state.team});
   }
 
