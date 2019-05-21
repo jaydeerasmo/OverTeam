@@ -19,7 +19,7 @@ export default class NewTeamScreen extends React.Component {
     this.state = {
       loading: true,
       error: null,
-      platform: 'Select Platform',
+      platform: 'xbl',
       team: [],
     };
   }

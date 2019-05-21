@@ -4,5 +4,5 @@ const url = "https://ovrstat.com/stats";
 
 export function getProfile(platform, name){
   const endpoint = `${url}/${platform}/${name}`
-  return fetch(endpoint).then((res) => res.json());
+  return fetch(endpoint).then((res) => res.json()).then((responseJson) => {return responseJson});
 }
