@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, ActivityIndicator} from 'react-native';
 import * as Colors from '../constants/Colors';
 import * as Overwatch from '../components/Overwatch';
 import StatCard from '../components/StatCard';
@@ -14,7 +14,7 @@ export default class TeamStatsScreen extends React.Component {
     }
   }
 
-  async getStats(){
+  getStats = async() => {
     const team = this.props.navigation.getParam('team', []);
     const platform = this.props.navigation.getParam('platform', 'pc');
     let stats = [];
@@ -25,25 +25,31 @@ export default class TeamStatsScreen extends React.Component {
         });
     }
 
-    this.setSate({
-      teamStats: stats
+    this.setState({
+      teamStats: stats,
+      loading: false
     });
   }
 
-  componentDidMount(){
-    this.getStats().bind(this);
-
-  }
-
   render(){
-    return(
-      <View style = {styles.container}>
-        <StatCard
-          team={this.state.teamStats}
-          stat="averageDamage"
-        />
-      </View>
-    );
+    if(this.state.loading){
+      this.getStats();
+      return(
+        <View style = {styles.container}>
+           <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      );
+    }
+    else{
+      return(
+        <View style = {styles.container}>
+          <StatCard
+            team={this.state.teamStats}
+            stat="averageDamage"
+          />
+        </View>
+      );
+    }
   }
 
 }

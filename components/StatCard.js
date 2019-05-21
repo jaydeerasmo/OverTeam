@@ -31,6 +31,7 @@ export default class StatCard extends React.Component {
   }
 
   componentDidMount(){
+    console.log(this.props.team.length);
     if(this.props.stat === "averageDamage"){
       this.setState({
         team: this.averageDamage()
@@ -69,7 +70,7 @@ export default class StatCard extends React.Component {
       </View>
     );
   }
-  
+
 }
 
 const styles = StyleSheet.create({
