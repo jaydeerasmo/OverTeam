@@ -1,6 +1,8 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
+import * as Colors from '../constants/Colors';
 import * as Overwatch from '../components/Overwatch';
+import StatCard from '../components/StatCard';
 
 export default class TeamStatsScreen extends React.Component {
   constructor(props){
@@ -12,32 +14,35 @@ export default class TeamStatsScreen extends React.Component {
     }
   }
 
-  getStats = async() => {
+  async getStats(){
     const team = this.props.navigation.getParam('team', []);
     const platform = this.props.navigation.getParam('platform', 'pc');
-    let teamStats = [];
+    let stats = [];
 
     for(var i = 0; i < team.length; i++){
         await Overwatch.getProfile(platform, team[i]).then((res) => {
-          teamStats[i] = res;
+          stats[i] = res;
         });
     }
 
     this.setSate({
-      teamStats: teamStats
+      teamStats: stats
     });
   }
 
   componentDidMount(){
-    this.getStats();
+    this.getStats().bind(this);
+
   }
 
   render(){
     return(
       <View style = {styles.container}>
-
+        <StatCard
+          team={this.state.teamStats}
+          stat="averageDamage"
+        />
       </View>
-
     );
   }
 
@@ -46,6 +51,6 @@ export default class TeamStatsScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex:1,
-        backgroundColor: "#fff",
+        backgroundColor: Colors.DARK_GREY,
     }
 });
