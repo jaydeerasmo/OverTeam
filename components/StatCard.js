@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, FlatList} from 'react-native';
+import {View, StyleSheet, FlatList, Text} from 'react-native';
 import {List, ListItem} from 'react-native-elements';
 import * as Colors from '../constants/Colors';
 
@@ -9,6 +9,7 @@ export default class StatCard extends React.Component {
     this.state = {
       loading:true,
       error: null,
+      statName:"",
       team: [],
     }
   }
@@ -18,46 +19,68 @@ export default class StatCard extends React.Component {
       return ({
         name: player.name,
         icon: player.icon,
-        stat: player.competitiveStats.careerStats.allHeroes.average.heroDamageDoneAvgPer10Min
+        stat: player.competitiveStats.careerStats.allHeroes.average.allDamageDoneAvgPer10Min * 1000 //CHANGE HARDCODED VALUE TO CONSTANT
       });
     });
 
     statList.sort(function(player1, player2){
-      return player1.stat - player2.stat;
+      return player2.stat - player1.stat;
     });
 
     return statList;
   }
 
   averageHealing = () => {
-    return this.props.team.map(function(player){
-      return player.competitiveStats.careerStats.allHeroes.average.healingDoneAvgPer10Min;
+    const statList = this.props.team.map(function(player, index){
+      return ({
+        name: player.name,
+        icon: player.icon,
+        stat: player.competitiveStats.careerStats.allHeroes.average.healingDoneAvgPer10Min * 1000
+      });
     });
+
+    statList.sort(function(player1, player2){
+      return player2.stat - player1.stat;
+    });
+
+    return statList;
   }
 
   averageElims = () => {
-    return this.props.team.map(function(player){
-      return player.competitiveStats.careerStats.allHeroes.average.eliminationsAvgPer10Min;
+    const statList = this.props.team.map(function(player, index){
+      return ({
+        name: player.name,
+        icon: player.icon,
+        stat: player.competitiveStats.careerStats.allHeroes.average.eliminationsAvgPer10Min * 1000
+      });
     });
+
+    statList.sort(function(player1, player2){
+      return player2.stat - player1.stat;
+    });
+
+    return statList;
   }
 
   componentDidMount(){
     if(this.props.stat === "averageDamage"){
-      let newTeam = this.averageDamage();
       this.setState({
-        team: newTeam,
+        team: this.averageDamage(),
+        statName: "Average Damage Per 10",
         loading: false
       });
     }
     else if(this.props.stat === "averageHealing"){
       this.setState({
         team: this.averageHealing(),
+        statName: "Average Healing Per 10",
         loading: false
       });
     }
     else if(this.props.stat === "averageElims"){
       this.setState({
         team: this.averageElims(),
+        statName: "Average Elims Per 10",
         loading: false
       });
     }
@@ -89,6 +112,7 @@ export default class StatCard extends React.Component {
     else{
       return(
         <View style = {styles.container}>
+          <Text> {this.state.statName} </Text>
           <FlatList
             data = {this.state.team}
             extraData = {this.state.loading}

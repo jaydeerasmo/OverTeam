@@ -47,6 +47,14 @@ export default class TeamStatsScreen extends React.Component {
             team={this.state.teamStats}
             stat="averageDamage"
           />
+          <StatCard
+            team={this.state.teamStats}
+            stat="averageHealing"
+          />
+          <StatCard
+            team={this.state.teamStats}
+            stat="averageElims"
+          />
         </View>
       );
     }
