@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, FlatList} from 'react-native';
 import {List, ListItem} from 'react-native-elements';
+import * as Colors from '../constants/Colors';
 
 export default class StatCard extends React.Component {
   constructor(props){
@@ -12,10 +13,20 @@ export default class StatCard extends React.Component {
     }
   }
 
-  averageDamage = () => {
-    return this.props.team.map(function(player){
-      return player.competitiveStats.careerStats.allHeroes.average.heroDamageDoneAvgPer10Min;
+  averageDamage(){
+    const statList = this.props.team.map(function(player, index){
+      return ({
+        name: player.name,
+        icon: player.icon,
+        stat: player.competitiveStats.careerStats.allHeroes.average.heroDamageDoneAvgPer10Min
+      });
     });
+
+    statList.sort(function(player1, player2){
+      return player1.stat - player2.stat;
+    });
+
+    return statList;
   }
 
   averageHealing = () => {
@@ -31,10 +42,10 @@ export default class StatCard extends React.Component {
   }
 
   componentDidMount(){
-    console.log(this.props.team.length);
     if(this.props.stat === "averageDamage"){
+      let newTeam = this.averageDamage();
       this.setState({
-        team: this.averageDamage(),
+        team: newTeam,
         loading: false
       });
     }
@@ -52,13 +63,15 @@ export default class StatCard extends React.Component {
     }
   }
 
-  renderItem = (player) =>{
+  renderItem = ({item}) =>{
     return (
       <ListItem
         roundAvatar
-        key={player.name}
-        title={player.name}
-        avatar={{uri:player.icon}}
+        containerStyle = {{backgroundColor: Colors.MEDIUM_GREY}}
+        name={item.name}
+        title={item.name}
+        rightTitle={item.stat}
+        leftAvatar={{ source: {uri: item.icon} }}
         hideChevron={true}
       />
     );
@@ -78,8 +91,9 @@ export default class StatCard extends React.Component {
         <View style = {styles.container}>
           <FlatList
             data = {this.state.team}
+            extraData = {this.state.loading}
             renderItem = {this.renderItem}
-            keyExtractor = {item => item.name}
+            keyExtractor = {(item, index) => item.name}
           />
         </View>
       );
@@ -91,6 +105,7 @@ export default class StatCard extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex:0,
+    backgroundColor: Colors.MEDIUM_GREY,
   },
 });
