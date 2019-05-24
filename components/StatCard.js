@@ -14,18 +14,16 @@ export default class StatCard extends React.Component {
     }
   }
 
-  averageDamage(){
+  averageDamage = () => {
     const statList = this.props.team.map(function(player, index){
       return ({
         name: player.name,
         icon: player.icon,
-        stat: player.competitiveStats.careerStats.allHeroes.average.allDamageDoneAvgPer10Min * 1000 //CHANGE HARDCODED VALUE TO CONSTANT
+        stat: player.competitiveStats.careerStats.allHeroes.combat.damageDone / player.competitveStats.careerStats.allHeroes.game.gamesPlayed
       });
     });
 
-    statList.sort(function(player1, player2){
-      return player2.stat - player1.stat;
-    });
+    statList.sort(this.comparePlayers);
 
     return statList;
   }
@@ -35,13 +33,11 @@ export default class StatCard extends React.Component {
       return ({
         name: player.name,
         icon: player.icon,
-        stat: player.competitiveStats.careerStats.allHeroes.average.healingDoneAvgPer10Min * 1000
+        stat: player.competitiveStats.careerStats.allHeroes.assists.healingDone / player.competitveStats.careerStats.allHeroes.game.gamesPlayed
       });
     });
 
-    statList.sort(function(player1, player2){
-      return player2.stat - player1.stat;
-    });
+    statList.sort(this.comparePlayers);
 
     return statList;
   }
@@ -51,36 +47,38 @@ export default class StatCard extends React.Component {
       return ({
         name: player.name,
         icon: player.icon,
-        stat: player.competitiveStats.careerStats.allHeroes.average.eliminationsAvgPer10Min * 1000
+        stat: player.competitiveStats.careerStats.allHeroes.combat.eliminations / player.competitveStats.careerStats.allHeroes.game.gamesPlayed
       });
     });
 
-    statList.sort(function(player1, player2){
-      return player2.stat - player1.stat;
-    });
+    statList.sort(this.comparePlayers);
 
     return statList;
+  }
+
+  comparePlayers = (player1, player2) => {
+      return player2.stat - player1.stat;
   }
 
   componentDidMount(){
     if(this.props.stat === "averageDamage"){
       this.setState({
         team: this.averageDamage(),
-        statName: "Average Damage Per 10",
+        statName: "Average Damage Per Game",
         loading: false
       });
     }
     else if(this.props.stat === "averageHealing"){
       this.setState({
         team: this.averageHealing(),
-        statName: "Average Healing Per 10",
+        statName: "Average Healing Per Game",
         loading: false
       });
     }
     else if(this.props.stat === "averageElims"){
       this.setState({
         team: this.averageElims(),
-        statName: "Average Elims Per 10",
+        statName: "Average Elims Per Game",
         loading: false
       });
     }
