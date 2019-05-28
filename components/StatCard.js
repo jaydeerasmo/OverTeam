@@ -19,7 +19,7 @@ export default class StatCard extends React.Component {
       return ({
         name: player.name,
         icon: player.icon,
-        stat: player.competitiveStats.careerStats.allHeroes.combat.damageDone / player.competitveStats.careerStats.allHeroes.game.gamesPlayed
+        stat: player.competitiveStats.careerStats.allHeroes.combat.damageDone / player.competitiveStats.careerStats.allHeroes.game.gamesPlayed
       });
     });
 
@@ -33,7 +33,7 @@ export default class StatCard extends React.Component {
       return ({
         name: player.name,
         icon: player.icon,
-        stat: player.competitiveStats.careerStats.allHeroes.assists.healingDone / player.competitveStats.careerStats.allHeroes.game.gamesPlayed
+        stat: player.competitiveStats.careerStats.allHeroes.assists.healingDone / player.competitiveStats.careerStats.allHeroes.game.gamesPlayed
       });
     });
 
@@ -47,7 +47,7 @@ export default class StatCard extends React.Component {
       return ({
         name: player.name,
         icon: player.icon,
-        stat: player.competitiveStats.careerStats.allHeroes.combat.eliminations / player.competitveStats.careerStats.allHeroes.game.gamesPlayed
+        stat: player.competitiveStats.careerStats.allHeroes.combat.eliminations / player.competitiveStats.careerStats.allHeroes.game.gamesPlayed
       });
     });
 
@@ -91,6 +91,7 @@ export default class StatCard extends React.Component {
         containerStyle = {{backgroundColor: Colors.MEDIUM_GREY}}
         name={item.name}
         title={item.name}
+        titleStyle={{color: 'white'}}
         rightTitle={item.stat}
         leftAvatar={{ source: {uri: item.icon} }}
         hideChevron={true}
@@ -110,7 +111,7 @@ export default class StatCard extends React.Component {
     else{
       return(
         <View style = {styles.container}>
-          <Text> {this.state.statName} </Text>
+          <Text style={{color: 'white', fontWeight: 'bold', fontSize: 10}}> {this.state.statName} </Text>
           <FlatList
             data = {this.state.team}
             extraData = {this.state.loading}
@@ -129,5 +130,6 @@ const styles = StyleSheet.create({
   container: {
     flex:0,
     backgroundColor: Colors.MEDIUM_GREY,
+    margin: 8,
   },
 });

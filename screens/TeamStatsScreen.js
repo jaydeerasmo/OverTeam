@@ -1,10 +1,29 @@
 import React from 'react';
-import {View, StyleSheet, ActivityIndicator} from 'react-native';
+import {View, StyleSheet, ActivityIndicator, ScrollView} from 'react-native';
 import * as Colors from '../constants/Colors';
 import * as Overwatch from '../components/Overwatch';
 import StatCard from '../components/StatCard';
 
 export default class TeamStatsScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Team Stats',
+    headerStyle: {
+      backgroundColor: Colors.MEDIUM_GREY,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+          height: 10,
+      },
+      shadowOpacity: 0.51,
+      shadowRadius: 13.16,
+
+      elevation: 20,
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
   constructor(props){
     super(props);
     this.state = {
@@ -43,18 +62,20 @@ export default class TeamStatsScreen extends React.Component {
     else{
       return(
         <View style = {styles.container}>
-          <StatCard
-            team={this.state.teamStats}
-            stat="averageDamage"
-          />
-          <StatCard
-            team={this.state.teamStats}
-            stat="averageHealing"
-          />
-          <StatCard
-            team={this.state.teamStats}
-            stat="averageElims"
-          />
+          <ScrollView>
+            <StatCard
+              team={this.state.teamStats}
+              stat="averageDamage"
+            />
+            <StatCard
+              team={this.state.teamStats}
+              stat="averageHealing"
+            />
+            <StatCard
+              team={this.state.teamStats}
+              stat="averageElims"
+            />
+          </ScrollView>
         </View>
       );
     }

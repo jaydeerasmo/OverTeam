@@ -8,6 +8,15 @@ export default class NewTeamScreen extends React.Component {
     title: 'New Team',
     headerStyle: {
       backgroundColor: Colors.MEDIUM_GREY,
+      shadowColor: "#000",
+      shadowOffset: {
+         width: 0,
+          height: 10,
+      },
+      shadowOpacity: 0.51,
+      shadowRadius: 13.16,
+
+      elevation: 20,
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
