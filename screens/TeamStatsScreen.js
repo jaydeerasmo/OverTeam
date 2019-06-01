@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, StyleSheet, ActivityIndicator, ScrollView} from 'react-native';
+import {View, StyleSheet, ActivityIndicator, ScrollView, AsyncStorage} from 'react-native';
+import {Button} from 'react-native-elements';
 import * as Colors from '../constants/Colors';
 import * as Overwatch from '../components/Overwatch';
 import StatCard from '../components/StatCard';
@@ -24,6 +25,7 @@ export default class TeamStatsScreen extends React.Component {
       fontWeight: 'bold',
     },
   };
+
   constructor(props){
     super(props);
     this.state = {
@@ -48,6 +50,32 @@ export default class TeamStatsScreen extends React.Component {
       teamStats: stats,
       loading: false
     });
+  }
+
+  saveTeam = async() => {
+    let team = this.state.teamStats.map(function(player,index){
+      return({
+        name: player.name,
+        icon: player.icon,
+      });
+    });
+
+    try{
+      let teamList = await AsyncStorage.getItem('TeamList');
+      teamList = JSON.parse(teamList);
+
+      if(teamList !== null){
+        teamList.push(team);
+        await AsyncStorage.setItem('TeamList', JSON.stringify(teamList));
+      }
+      else if (teamList === null){
+        teamList = [team];
+        await AsyncStorage.setItem('TeamList', JSON.stringify(teamList));
+      }
+    }
+    catch(error){
+      console.log(error);
+    }
   }
 
   render(){
@@ -76,6 +104,10 @@ export default class TeamStatsScreen extends React.Component {
               stat="averageElims"
             />
           </ScrollView>
+          <Button
+            title="Save Team"
+            onPress={this.saveTeam}
+          />
         </View>
       );
     }

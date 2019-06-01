@@ -1,10 +1,10 @@
 import React from 'react';
 import { createAppContainer, createStackNavigator, createSwitchNavigator } from 'react-navigation';
-import StartScreen from './screens/StartScreen';
+import TeamListScreen from './screens/TeamListScreen';
 import NewTeamScreen from './screens/NewTeamScreen';
 import TeamStatsScreen from './screens/TeamStatsScreen';
 
-const AppStack = createStackNavigator({Start: StartScreen, NewTeam: NewTeamScreen, TeamStats: TeamStatsScreen });
+const AppStack = createStackNavigator({NewTeam: NewTeamScreen, TeamList: TeamListScreen, TeamStats: TeamStatsScreen });
 
 export default createAppContainer(createSwitchNavigator({
     App: AppStack

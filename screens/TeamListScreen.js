@@ -3,7 +3,7 @@ import {StyleSheet, View, FlatList, Text} from 'react-native';
 import * as Colors from '../constants/Colors';
 import { Button } from 'react-native-elements';
 
-export default class StartScreen extends React.Component {
+export default class TeamListScreen extends React.Component {
   static navigationOptions = {
     title: 'Start',
     headerStyle: {
@@ -37,18 +37,10 @@ export default class StartScreen extends React.Component {
   render(){
     return(
         <View style = {styles.container}>
-
           <FlatList
             data = {this.state.teamList}
             renderItem = {({item}) => <TeamListItem team={item}/>}
           />
-          <Button
-            title="New Team"
-            buttonStyle = {styles.newTeamButton}
-            onPress = {() => {this.props.navigation.navigate("NewTeam")}}
-            raised = {true}
-          />
-
         </View>
     );
   }
