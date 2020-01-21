@@ -14,40 +14,30 @@ export default class StatCard extends React.Component {
     }
   }
 
-  averageDamage = () => {
-    const statList = this.props.team.map(function(player, index){
-      return ({
+  getStat = (props) =>{
+    const statList = props.team.map(function(player,index){
+      var rawStat;
+      if (player.private){
+        rawStat = "private";
+      }
+      else{
+        switch (props.stat){
+          case "averageDamage":
+            rawStat = player.competitiveStats.careerStats.allHeroes.combat.damageDone / player.competitiveStats.careerStats.allHeroes.game.gamesPlayed;
+            break;
+          case "averageHealing":
+            rawStat = player.competitiveStats.careerStats.allHeroes.assists.healingDone / player.competitiveStats.careerStats.allHeroes.game.gamesPlayed;
+            break;
+          case "averageElims":
+            rawStat = player.competitiveStats.careerStats.allHeroes.combat.eliminations / player.competitiveStats.careerStats.allHeroes.game.gamesPlayed;
+            break;
+        }
+        rawStat = rawStat.toFixed(0);
+      }
+      return({
         name: player.name,
         icon: player.icon,
-        stat: player.competitiveStats.careerStats.allHeroes.combat.damageDone / player.competitiveStats.careerStats.allHeroes.game.gamesPlayed
-      });
-    });
-
-    statList.sort(this.comparePlayers);
-
-    return statList;
-  }
-
-  averageHealing = () => {
-    const statList = this.props.team.map(function(player, index){
-      return ({
-        name: player.name,
-        icon: player.icon,
-        stat: player.competitiveStats.careerStats.allHeroes.assists.healingDone / player.competitiveStats.careerStats.allHeroes.game.gamesPlayed
-      });
-    });
-
-    statList.sort(this.comparePlayers);
-
-    return statList;
-  }
-
-  averageElims = () => {
-    const statList = this.props.team.map(function(player, index){
-      return ({
-        name: player.name,
-        icon: player.icon,
-        stat: player.competitiveStats.careerStats.allHeroes.combat.eliminations / player.competitiveStats.careerStats.allHeroes.game.gamesPlayed
+        stat: rawStat
       });
     });
 
@@ -57,31 +47,34 @@ export default class StatCard extends React.Component {
   }
 
   comparePlayers = (player1, player2) => {
-      return player2.stat - player1.stat;
+      if(player1.stat === "private"){
+        return 1;
+      }
+      else if(player2.stat === "private"){
+        return -1;
+      }
+      else{
+        return player2.stat - player1.stat;
+      }
   }
 
   componentDidMount(){
+    var statName;
     if(this.props.stat === "averageDamage"){
-      this.setState({
-        team: this.averageDamage(),
-        statName: "Average Damage Per Game",
-        loading: false
-      });
+      statName = "Average Damage Per Game";
     }
     else if(this.props.stat === "averageHealing"){
-      this.setState({
-        team: this.averageHealing(),
-        statName: "Average Healing Per Game",
-        loading: false
-      });
+      statName = "Average Healing Per Game";
     }
     else if(this.props.stat === "averageElims"){
-      this.setState({
-        team: this.averageElims(),
-        statName: "Average Elims Per Game",
-        loading: false
-      });
+      statName = "Average Elims Per Game";
     }
+
+    this.setState({
+      team:this.getStat(this.props),
+      statName: statName,
+      loading: false
+    });
   }
 
   renderItem = ({item}) =>{
@@ -93,8 +86,21 @@ export default class StatCard extends React.Component {
         title={item.name}
         titleStyle={{color: 'white'}}
         rightTitle={item.stat}
+        rightTitleStyle={{color: 'white'}}
         leftAvatar={{ source: {uri: item.icon} }}
         hideChevron={true}
+      />
+    );
+  }
+
+  renderSeparator = () => {
+    return (
+      <View
+        style ={{
+          height: 1,
+          width: "100%",
+          backgroundColor: Colors.DARK_GREY,
+        }}
       />
     );
   }
@@ -117,6 +123,7 @@ export default class StatCard extends React.Component {
             extraData = {this.state.loading}
             renderItem = {this.renderItem}
             keyExtractor = {(item, index) => item.name}
+            ItemSeparatorComponent = {this.renderSeparator}
           />
         </View>
       );

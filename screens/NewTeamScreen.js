@@ -28,7 +28,7 @@ export default class NewTeamScreen extends React.Component {
     this.state = {
       loading: true,
       error: null,
-      platform: 'xbl',
+      platform: 'pc',
       team: [],
     };
   }
@@ -46,13 +46,9 @@ export default class NewTeamScreen extends React.Component {
   render(){
     return(
       <View style={styles.container}>
-        <Picker
-          selectedValue={this.state.platform}
-          style = {styles.picker}
-          onValueChange = {(itemValue, itemIndex) => this.setState({platform: itemValue})}
-        >
-          <Picker.Item label="Xbox" value="xbl"/>
+        <Picker selectedValue={this.state.platform} style = {styles.picker} onValueChange = {(itemValue, itemIndex) => this.setState({platform: itemValue})}>
           <Picker.Item label="PC" value="pc"/>
+          <Picker.Item label="Xbox" value="xbl"/>
           <Picker.Item label="Playstation" value="psn"/>
         </Picker>
 
@@ -118,13 +114,12 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
   textInput: {
-    color: "white",
-
+    color: "black",
   },
   inputContainer: {
-    backgroundColor: Colors.MEDIUM_GREY,
+    backgroundColor: "white",
     flex:0,
-    margin: 8,
+    margin: 10,
     borderRadius: 15,
     shadowColor: "#000",
     shadowOffset: {
@@ -141,7 +136,15 @@ const styles = StyleSheet.create({
     color: "white",
     margin: 8,
     backgroundColor: Colors.MEDIUM_GREY,
+    shadowColor: "#000",
+    shadowOffset: {
+       width: 0,
+       height: 3,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
 
+    elevation: 7,
   },
   submitButton: {
 
